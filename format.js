@@ -27,39 +27,34 @@
 			return 0;*/
 		},
 		
-		num(num, dec, no_thousands_sep, no_force_dec){
-			/*if(isNaN(num)){
-				num = 0;
+		num(num, dec, no_tsep, no_force_dpoint){
+			if(isNaN(num)){
+				return 0;
 			}
-			else if(typeof num != 'number'){
+			
+			if(typeof num != 'number'){
 				num = parseFloat(num);
 			}
 			
-			var scale = '', i;
-			for(i=0; i<dec; i++){
-				scale += '0';
-			}
+			let number = round_dec(num, dec).toString().split('.');
 			
-			var number = (Math.round(num * ('1'+scale)) / ('1'+scale)).toString().split('.');
-			
-			if(!no_force_dec){
+			if(!no_force_dpoint){
 				if(!number[1]){
-					number[1] = scale;
-				}
-				else{
-					var dec_diff = dec - number[1].length;
-					if(dec_diff > 0){
-						for(i=0; i<dec_diff; i++){
-							number[1] += '0';
-						}
+					if(dec){
+						number[1] = Format.zerofill(0, dec);
 					}
 				}
+				else if(number[1].length < dec){
+					number[1] = Format.zerofill(number[1], dec, true);
+				}
 			}
 			
-			var str = no_thousands_sep ? number[0] : number[0].replace(/\d{1,3}(?=(\d{3})+(?!\d))/g, '$&'+THOUSANDS_SEP);
-			str += number[1] ? DECIMAL_POINT+number[1] : '';
+			let str = no_tsep ? number[0] : number[0].replace(/\d{1,3}(?=(\d{3})+(?!\d))/g, '$&'+tsep);
+			if(number[1]){
+				str += dpoint+number[1];
+			}
 			
-			return str;*/
+			return str;
 		},
 		
 		zerofill(num, width, append){
@@ -67,4 +62,17 @@
 			return append ? parseInt(n+fill) : fill+n;
 		}
 	};
+	
+	function round_dec(num, dec){
+		if(!dec){
+			return Math.round(num);
+		}
+		
+		let scale = '';
+		for(let i=0; i<dec; i++){
+			scale += '0';
+		}
+		
+		return Math.round(num * ('1'+scale)) / ('1'+scale);
+	}
 })(this);
