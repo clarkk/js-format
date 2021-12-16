@@ -56,6 +56,10 @@
 			return str;
 		},
 		
+		is_number(num){
+			return !isNaN(parseFloat(num)) && isFinite(num);
+		},
+		
 		nl2br(str){
 			return str.replace(/\n/g, '<br>');
 		},
