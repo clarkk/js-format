@@ -10,7 +10,7 @@
 		},
 		
 		datasize(num){
-			/*let units = {
+			let units = {
 				Gb : 1024 * 1024 * 1024,
 				Mb : 1024 * 1024,
 				Kb : 1024,
@@ -24,7 +24,7 @@
 				}
 			}
 			
-			return 0;*/
+			return 0;
 		},
 		
 		num(num, dec, no_tsep, no_force_dpoint){
