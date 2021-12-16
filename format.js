@@ -48,13 +48,10 @@
 			return parseFloat(str.replace(/,/g, '.')) || 0;
 		},
 		
-		html(str, nl){
+		html(str){
 			if(typeof str == 'string'){
 				//.replace(/&/g, '&amp;')
-				str = str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-				if(nl){
-					str = Format.nl2br(str);
-				}
+				str = Format.nl2br(str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'));
 			}
 			
 			return str;
