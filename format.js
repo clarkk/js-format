@@ -48,6 +48,22 @@
 			return parseFloat(str.replace(/,/g, '.')) || 0;
 		},
 		
+		html(str, nl){
+			if(typeof str == 'string'){
+				//.replace(/&/g, '&amp;')
+				str = str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+				if(nl){
+					str = Format.nl2br(str);
+				}
+			}
+			
+			return str;
+		},
+		
+		nl2br(str){
+			return str.replace(/\n/g, '<br>');
+		},
+		
 		num(num, dec, no_tsep, no_force_dpoint){
 			if(isNaN(num)){
 				return 0;
