@@ -50,7 +50,6 @@
 		
 		html(str){
 			if(typeof str == 'string'){
-				//.replace(/&/g, '&amp;')
 				str = Format.nl2br(str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'));
 			}
 			
@@ -89,6 +88,10 @@
 			}
 			
 			return str;
+		},
+		
+		ucfirst(str){
+			return str.charAt(0).toUpperCase() + str.slice(1);
 		},
 		
 		zerofill(num, width, append){
