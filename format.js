@@ -5,6 +5,18 @@
 	
 	root.Format = {
 		init(decimal_point, thousands_sep){
+			if(!is_dpoint_tsep(decimal_point)){
+				throw new Error('Invalid decimal point: '+decimal_point);
+			}
+			
+			if(!is_dpoint_tsep(thousands_sep)){
+				throw new Error('Invalid thousands separator: '+thousands_sep);
+			}
+			
+			if(decimal_point == thousands_sep){
+				throw new Error('Decimal point and thousands separator can not be the same character');
+			}
+			
 			dpoint = decimal_point;
 			tsep = thousands_sep;
 		},
@@ -25,6 +37,15 @@
 			}
 			
 			return 0;
+		},
+		
+		float(str){
+			let d = str.lastIndexOf(dpoint), t = str.lastIndexOf(tsep);
+			if(d > -1 && t > -1){
+				str = str.replace(new RegExp('\\'+(Math.max(d, t) == d ? tsep : dpoint), 'g'), '');
+			}
+			
+			return parseFloat(str.replace(/,/g, '.')) || 0;
 		},
 		
 		num(num, dec, no_tsep, no_force_dpoint){
@@ -74,5 +95,9 @@
 		}
 		
 		return Math.round(num * ('1'+scale)) / ('1'+scale);
+	}
+	
+	function is_dpoint_tsep(str){
+		return str == '.' || str == ',';
 	}
 })(this);
