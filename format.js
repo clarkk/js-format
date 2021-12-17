@@ -48,9 +48,12 @@
 			return parseFloat(str.replace(/,/g, '.')) || 0;
 		},
 		
-		html(str){
+		html(str, keep_nl){
 			if(typeof str == 'string'){
-				str = Format.nl2br(str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'));
+				str = str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+				if(!keep_nl){
+					str = Format.nl2br(str);
+				}
 			}
 			
 			return str;
