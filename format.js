@@ -21,6 +21,21 @@
 			tsep = thousands_sep;
 		},
 		
+		array_sort(objs, sort_property){
+			objs.sort(function(a, b){
+				let av = typeof a[sort_property] == 'string' ? a[sort_property].toLowerCase() : a[sort_property],
+					bv = typeof b[sort_property] == 'string' ? b[sort_property].toLowerCase() : b[sort_property];
+				
+				if(av < bv){
+					return -1;
+				}
+				else if(av > bv){
+					return 1;
+				}
+				return 0;
+			});
+		},
+		
 		datasize(num){
 			let units = {
 				Gb : 1024 * 1024 * 1024,
