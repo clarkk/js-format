@@ -13,7 +13,7 @@ window.Format = Object.freeze({
 		tsep = thousands_sep;
 	},
 	array_sort(objs, sort_property){
-		objs.sort(function(a, b){
+		objs.sort((a, b)=>{
 			let av = typeof a[sort_property] == 'string' ? a[sort_property].toLowerCase() : a[sort_property],
 				bv = typeof b[sort_property] == 'string' ? b[sort_property].toLowerCase() : b[sort_property];
 			
