@@ -32,7 +32,7 @@ window.Format = Object.freeze({
 		}, scale;
 		for(let k in units){
 			scale = num / units[k];
-			if(scale >= 1) return Format.num(scale, 2)+' '+k;
+			if(scale >= 1) return this.num(scale, 2)+' '+k;
 		}
 		return 0;
 	},
@@ -44,7 +44,7 @@ window.Format = Object.freeze({
 	html(str, keep_nl){
 		if(typeof str == 'string'){
 			str = str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-			if(!keep_nl) str = Format.nl2br(str);
+			if(!keep_nl) str = this.nl2br(str);
 		}
 		return str;
 	},
@@ -63,9 +63,9 @@ window.Format = Object.freeze({
 		
 		if(!no_force_dpoint){
 			if(!number[1]){
-				if(dec) number[1] = Format.zerofill(0, dec);
+				if(dec) number[1] = this.zerofill(0, dec);
 			}
-			else if(number[1].length < dec) number[1] = Format.zerofill(number[1], dec, true);
+			else if(number[1].length < dec) number[1] = this.zerofill(number[1], dec, true);
 		}
 		
 		let str = no_tsep ? number[0] : number[0].replace(/\d{1,3}(?=(\d{3})+(?!\d))/g, '$&'+tsep);
