@@ -55,7 +55,7 @@ window.Format = Object.freeze({
 		return str.replace(/\n/g, '<br>');
 	},
 	regex_escape_metachars(str){
-		return str.replace(/[-[\]{}()*+?.\\^$|#\s]/g, '\\$&');
+		return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 	},
 	num(num, dec, no_tsep, no_force_dpoint){
 		if(isNaN(num)) return 0;
