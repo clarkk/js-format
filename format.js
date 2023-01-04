@@ -7,18 +7,18 @@ window.Format = Object.freeze({
 	init(decimal_point, thousands_sep){
 		if(!is_dpoint_tsep(decimal_point)) throw new Error('Invalid decimal point: '+decimal_point);
 		if(!is_dpoint_tsep(thousands_sep)) throw new Error('Invalid thousands separator: '+thousands_sep);
-		if(decimal_point == thousands_sep) throw new Error('Decimal point and thousands separator can not be the same character');
+		if(decimal_point === thousands_sep) throw new Error('Decimal point and thousands separator can not be the same character');
 		
 		dpoint = decimal_point;
 		tsep = thousands_sep;
 	},
 	array_sort(objs, sort_property, reverse){
 		objs.sort((a, b)=>{
-			let av = typeof a[sort_property] == 'string' ? a[sort_property].toLowerCase() : a[sort_property],
-				bv = typeof b[sort_property] == 'string' ? b[sort_property].toLowerCase() : b[sort_property];
+			let av = typeof a[sort_property] === 'string' ? a[sort_property].toLowerCase() : a[sort_property],
+				bv = typeof b[sort_property] === 'string' ? b[sort_property].toLowerCase() : b[sort_property];
 			
 			if(av < bv) return -1;
-			else if(av > bv) return 1;
+			if(av > bv) return 1;
 			return 0;
 		});
 		if(reverse) objs.reverse();
@@ -38,11 +38,11 @@ window.Format = Object.freeze({
 	},
 	float(str){
 		let d = str.lastIndexOf(dpoint), t = str.lastIndexOf(tsep);
-		if(d > -1 && t > -1) str = str.replace(new RegExp('\\'+(Math.max(d, t) == d ? tsep : dpoint), 'g'), '');
+		if(d > -1 && t > -1) str = str.replace(new RegExp('\\'+(Math.max(d, t) === d ? tsep : dpoint), 'g'), '');
 		return parseFloat(str.replace(/,/g, '.')) || 0;
 	},
 	html(str, keep_nl){
-		if(typeof str == 'string'){
+		if(typeof str === 'string'){
 			str = str.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 			if(!keep_nl) str = this.nl2br(str);
 		}
@@ -94,6 +94,6 @@ function round_dec(num, dec){
 }
 
 function is_dpoint_tsep(str){
-	return str == '.' || str == ',';
+	return str === '.' || str === ',';
 }
 })();
