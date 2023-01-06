@@ -14,9 +14,7 @@ window.Format = Object.freeze({
 	},
 	array_sort(objs, sort_property, reverse){
 		objs.sort((a, b)=>{
-			let av = typeof a[sort_property] === 'string' ? a[sort_property].toLowerCase() : a[sort_property],
-				bv = typeof b[sort_property] === 'string' ? b[sort_property].toLowerCase() : b[sort_property];
-			
+			let av = typeof a[sort_property] === 'string' ? a[sort_property].toLowerCase() : a[sort_property], bv = typeof b[sort_property] === 'string' ? b[sort_property].toLowerCase() : b[sort_property];
 			if(av < bv) return -1;
 			if(av > bv) return 1;
 			return 0;
@@ -61,19 +59,15 @@ window.Format = Object.freeze({
 		if(isNaN(num)) return 0;
 		
 		if(typeof num != 'number') num = parseFloat(num);
-		
 		let number = round_dec(num, dec).toString().split('.');
-		
 		if(!no_force_dpoint){
 			if(!number[1]){
 				if(dec) number[1] = this.zerofill(0, dec);
 			}
 			else if(number[1].length < dec) number[1] = this.zerofill(number[1], dec, true);
 		}
-		
 		let str = no_tsep ? number[0] : number[0].replace(/\d{1,3}(?=(\d{3})+(?!\d))/g, '$&'+tsep);
 		if(number[1]) str += dpoint+number[1];
-		
 		return str;
 	},
 	ucfirst(str){
