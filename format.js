@@ -59,7 +59,7 @@ window.Format = Object.freeze({
 		if(isNaN(num)) return 0;
 		
 		if(typeof num != 'number') num = parseFloat(num);
-		let number = round_dec(num, dec).toString().split('.');
+		let number = this.round(num, dec).toString().split('.');
 		if(!no_force_dpoint){
 			if(!number[1]){
 				if(dec) number[1] = this.zerofill(0, dec);
@@ -70,6 +70,13 @@ window.Format = Object.freeze({
 		if(number[1]) str += dpoint+number[1];
 		return str;
 	},
+	round(num, dec=0){
+		if(!dec) return Math.round(num + Number.EPSILON);
+		
+		let scale = '';
+		for(let i=0; i<dec; i++) scale += '0';
+		return Math.round((num + Number.EPSILON) * ('1'+scale)) / ('1'+scale);
+	},
 	ucfirst(str){
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	},
@@ -78,14 +85,6 @@ window.Format = Object.freeze({
 		return append ? num+fill : fill+num;
 	}
 });
-
-function round_dec(num, dec){
-	if(!dec) return Math.round(num);
-	
-	let scale = '';
-	for(let i=0; i<dec; i++) scale += '0';
-	return Math.round(num * ('1'+scale)) / ('1'+scale);
-}
 
 function is_dpoint_tsep(str){
 	return str === '.' || str === ',';
